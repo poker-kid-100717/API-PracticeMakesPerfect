@@ -29,9 +29,11 @@ namespace API.Controllers
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,
+                OrganizationName = request.OrganizationName,
                 Email = request.Email,
                 Phone = request.Phone,
-                Favorite = request.Favorite
+                IsInterviewSchedule = request.IsInterviewSchedule,
+                MeetingId = request.Meeting.Id
             };
 
             dbContext.Contacts.Add(domainModelContact);

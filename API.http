@@ -4,3 +4,16 @@ GET {{API_HostAddress}}/contacts/
 Accept: application/json
 
 ###
+
+POST {{API_HostAddress}}/contacts/
+Accept: application/json
+
+###
+
+GET {{API_HostAddress}}/meetings/
+Accept: application/json
+
+###
+
+POST {{API_HostAddress}}/meetings/
+Accept: application/json
