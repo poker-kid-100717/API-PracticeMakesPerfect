@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241130043204_CreateOneToOneFKWithMeetingsAndContacts")]
-    partial class CreateOneToOneFKWithMeetingsAndContacts
+    [Migration("20241201025536_ResolveIussue")]
+    partial class ResolveIussue
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,11 +34,8 @@ namespace API.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsInterviewSchedule")
+                    b.Property<bool?>("IsInterviewSchedule")
                         .HasColumnType("bit");
-
-                    b.Property<Guid>("MeetingId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -60,13 +57,13 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ContactId")
+                    b.Property<Guid?>("ContactId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("InterviewDateAndTime")
+                    b.Property<DateTime?>("InterviewDateAndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsRemote")
+                    b.Property<bool?>("IsRemote")
                         .HasColumnType("bit");
 
                     b.Property<string>("OrganizationName")
@@ -81,16 +78,22 @@ namespace API.Migrations
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("RateHourlyOrSalary")
+                    b.Property<Guid?>("PrimaryContactId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double?>("RateHourlyOrSalary")
                         .HasColumnType("float");
 
-                    b.Property<int>("Round")
+                    b.Property<int?>("Round")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ContactId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ContactId] IS NOT NULL");
+
+                    b.HasIndex("PrimaryContactId");
 
                     b.ToTable("Meetings");
                 });
@@ -100,15 +103,23 @@ namespace API.Migrations
                     b.HasOne("API.Models.Domain.Contact", "Contact")
                         .WithOne("Meeting")
                         .HasForeignKey("API.Models.Domain.Meeting", "ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("API.Models.Domain.Contact", "PrimaryContact")
+                        .WithMany("Meetings")
+                        .HasForeignKey("PrimaryContactId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Contact");
+
+                    b.Navigation("PrimaryContact");
                 });
 
             modelBuilder.Entity("API.Models.Domain.Contact", b =>
                 {
                     b.Navigation("Meeting");
+
+                    b.Navigation("Meetings");
                 });
 #pragma warning restore 612, 618
         }

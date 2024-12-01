@@ -28,12 +28,13 @@ namespace API.Controllers
             var domainModelContact = new Contact
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name,
-                OrganizationName = request.OrganizationName,
-                Email = request.Email,
-                Phone = request.Phone,
-                IsInterviewSchedule = request.IsInterviewSchedule,
-                MeetingId = request.Meeting.Id
+                Name = request?.Name,
+                OrganizationName = request?.OrganizationName,
+                Email = request?.Email,
+                Phone = request?.Phone,
+                IsInterviewSchedule = request?.IsInterviewSchedule,
+                Meeting = request?.Meeting,
+                Meetings = request.Meetings
             };
 
             dbContext.Contacts.Add(domainModelContact);
