@@ -28,15 +28,18 @@ namespace API.Controllers
             var domainModelMeeting = new Meeting
             {
                 Id = Guid.NewGuid(),
-                OrganizationName = request.OrganizationName,
-                Position = request.Position,
-                IsRemote = request.IsRemote,
-                PaymentType = request.PaymentType,
-                RateHourlyOrSalary = request.RateHourlyOrSalary,
-                POCPhone = request.POCPhone,
-                Round = request.Round,
-                InterviewDateAndTime = request.InterviewDateAndTime,
-                ContactId = request.Contact.Id,
+                OrganizationName = request?.OrganizationName,
+                Position = request?.Position,
+                IsRemote = request?.IsRemote,
+                PaymentType = request?.PaymentType,
+                RateHourlyOrSalary = request?.RateHourlyOrSalary,
+                POCPhone = request?.POCPhone,
+                Round = request?.Round,
+                InterviewDateAndTime = request?.InterviewDateAndTime,
+                ContactId = request?.ContactId,
+                Contact = request?.Contact,
+                PrimaryContactId = request?.PrimaryContactId,
+                PrimaryContact = request?.PrimaryContact,
 
             };
 

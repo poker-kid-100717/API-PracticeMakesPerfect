@@ -4,6 +4,7 @@ using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241201025413_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,6 +49,26 @@ namespace API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contacts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("6f6e0d91-5ed2-4ee5-8604-49413e10496f"),
+                            Email = "alice.johnson@techcorp.com",
+                            IsInterviewSchedule = true,
+                            Name = "Alice Johnson",
+                            OrganizationName = "TechCorp",
+                            Phone = "123-456-7890"
+                        },
+                        new
+                        {
+                            Id = new Guid("59094e29-6c3c-49d3-84f7-ffe1cdb13b7d"),
+                            Email = "bob.smith@innovatex.com",
+                            IsInterviewSchedule = false,
+                            Name = "Bob Smith",
+                            OrganizationName = "InnovateX",
+                            Phone = "234-567-8901"
+                        });
                 });
 
             modelBuilder.Entity("API.Models.Domain.Meeting", b =>
@@ -93,6 +116,34 @@ namespace API.Migrations
                     b.HasIndex("PrimaryContactId");
 
                     b.ToTable("Meetings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("75f06186-6ab3-4859-a58d-446bada51bb1"),
+                            ContactId = new Guid("6f6e0d91-5ed2-4ee5-8604-49413e10496f"),
+                            InterviewDateAndTime = new DateTime(2024, 12, 2, 19, 54, 12, 258, DateTimeKind.Local).AddTicks(5431),
+                            IsRemote = true,
+                            OrganizationName = "TechCorp",
+                            POCPhone = "123-456-7890",
+                            PaymentType = "Salary",
+                            Position = "Software Engineer",
+                            RateHourlyOrSalary = 120000.0,
+                            Round = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("02a7b69a-2ede-46da-a4ef-b00ff8300ea6"),
+                            InterviewDateAndTime = new DateTime(2024, 12, 3, 19, 54, 12, 260, DateTimeKind.Local).AddTicks(6071),
+                            IsRemote = false,
+                            OrganizationName = "InnovateX",
+                            POCPhone = "234-567-8901",
+                            PaymentType = "Hourly",
+                            Position = "Frontend Developer",
+                            PrimaryContactId = new Guid("59094e29-6c3c-49d3-84f7-ffe1cdb13b7d"),
+                            RateHourlyOrSalary = 50.0,
+                            Round = 1
+                        });
                 });
 
             modelBuilder.Entity("API.Models.Domain.Meeting", b =>
