@@ -4,6 +4,7 @@ using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241201030324_NewMigrationForLatest")]
+    partial class NewMigrationForLatest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +53,7 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2b41fac3-c947-4875-971f-b4c1bcdb0f05"),
+                            Id = new Guid("ddd3805e-6ea3-44f1-aa7b-411bc58b2e85"),
                             Email = "alice.johnson@techcorp.com",
                             IsInterviewSchedule = true,
                             Name = "Alice Johnson",
@@ -59,7 +62,7 @@ namespace API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("01d9519e-485b-4287-9599-8997e2a2f82c"),
+                            Id = new Guid("bddb92a0-4595-47ba-9006-a7c3547116e7"),
                             Email = "bob.smith@innovatex.com",
                             IsInterviewSchedule = false,
                             Name = "Bob Smith",
@@ -117,9 +120,9 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("751d5ae8-b7df-44e6-85e7-ae12138a8a20"),
-                            ContactId = new Guid("2b41fac3-c947-4875-971f-b4c1bcdb0f05"),
-                            InterviewDateAndTime = new DateTime(2024, 12, 2, 20, 6, 12, 708, DateTimeKind.Local).AddTicks(5483),
+                            Id = new Guid("9642178a-5a57-49a1-af4f-87d7a005b5dd"),
+                            ContactId = new Guid("ddd3805e-6ea3-44f1-aa7b-411bc58b2e85"),
+                            InterviewDateAndTime = new DateTime(2024, 12, 2, 20, 3, 23, 286, DateTimeKind.Local).AddTicks(6546),
                             IsRemote = true,
                             OrganizationName = "TechCorp",
                             POCPhone = "123-456-7890",
@@ -130,14 +133,14 @@ namespace API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("15644572-e8d0-44e8-b6c4-8250e2b2a534"),
-                            InterviewDateAndTime = new DateTime(2024, 12, 3, 20, 6, 12, 712, DateTimeKind.Local).AddTicks(4693),
+                            Id = new Guid("7cd8b6c7-d892-45fa-8e7e-e8c7fa51c7c1"),
+                            InterviewDateAndTime = new DateTime(2024, 12, 3, 20, 3, 23, 289, DateTimeKind.Local).AddTicks(5194),
                             IsRemote = false,
                             OrganizationName = "InnovateX",
                             POCPhone = "234-567-8901",
                             PaymentType = "Hourly",
                             Position = "Frontend Developer",
-                            PrimaryContactId = new Guid("01d9519e-485b-4287-9599-8997e2a2f82c"),
+                            PrimaryContactId = new Guid("bddb92a0-4595-47ba-9006-a7c3547116e7"),
                             RateHourlyOrSalary = 50.0,
                             Round = 1
                         });
