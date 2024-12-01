@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using API.Models.Domain;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace API.Data
 {
@@ -9,6 +10,10 @@ namespace API.Data
 
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,64 +34,64 @@ namespace API.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Seed data
-            //SeedData(modelBuilder);
+            SeedData(modelBuilder);
         }
 
-        //private void SeedData(ModelBuilder modelBuilder)
-        //{
-        //    // Contacts
-        //    var contact1 = new Contact
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Name = "Alice Johnson",
-        //        OrganizationName = "TechCorp",
-        //        Email = "alice.johnson@techcorp.com",
-        //        Phone = "123-456-7890",
-        //        IsInterviewSchedule = true
-        //    };
+        private void SeedData(ModelBuilder modelBuilder)
+        {
+            // Contacts
+            var contact1 = new Contact
+            {
+                Id = Guid.NewGuid(),
+                Name = "Alice Johnson",
+                OrganizationName = "TechCorp",
+                Email = "alice.johnson@techcorp.com",
+                Phone = "123-456-7890",
+                IsInterviewSchedule = true
+            };
 
-        //    var contact2 = new Contact
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Name = "Bob Smith",
-        //        OrganizationName = "InnovateX",
-        //        Email = "bob.smith@innovatex.com",
-        //        Phone = "234-567-8901",
-        //        IsInterviewSchedule = false
-        //    };
+            var contact2 = new Contact
+            {
+                Id = Guid.NewGuid(),
+                Name = "Bob Smith",
+                OrganizationName = "InnovateX",
+                Email = "bob.smith@innovatex.com",
+                Phone = "234-567-8901",
+                IsInterviewSchedule = false
+            };
 
-        //    modelBuilder.Entity<Contact>().HasData(contact1, contact2);
+            modelBuilder.Entity<Contact>().HasData(contact1, contact2);
 
-        //    // Meetings
-        //    var meeting1 = new Meeting
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        OrganizationName = "TechCorp",
-        //        Position = "Software Engineer",
-        //        IsRemote = true,
-        //        PaymentType = "Salary",
-        //        RateHourlyOrSalary = 120000,
-        //        POCPhone = "123-456-7890",
-        //        Round = 1,
-        //        InterviewDateAndTime = DateTime.Now.AddDays(2),
-        //        ContactId = contact1.Id // One-to-one relationship
-        //    };
+            // Meetings
+            var meeting1 = new Meeting
+            {
+                Id = Guid.NewGuid(),
+                OrganizationName = "TechCorp",
+                Position = "Software Engineer",
+                IsRemote = true,
+                PaymentType = "Salary",
+                RateHourlyOrSalary = 120000,
+                POCPhone = "123-456-7890",
+                Round = 1,
+                InterviewDateAndTime = DateTime.Now.AddDays(2),
+                ContactId = contact1.Id // One-to-one relationship
+            };
 
-        //    var meeting2 = new Meeting
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        OrganizationName = "InnovateX",
-        //        Position = "Frontend Developer",
-        //        IsRemote = false,
-        //        PaymentType = "Hourly",
-        //        RateHourlyOrSalary = 50.00,
-        //        POCPhone = "234-567-8901",
-        //        Round = 1,
-        //        InterviewDateAndTime = DateTime.Now.AddDays(3),
-        //        PrimaryContactId = contact2.Id // One-to-many relationship
-        //    };
+            var meeting2 = new Meeting
+            {
+                Id = Guid.NewGuid(),
+                OrganizationName = "InnovateX",
+                Position = "Frontend Developer",
+                IsRemote = false,
+                PaymentType = "Hourly",
+                RateHourlyOrSalary = 50.00,
+                POCPhone = "234-567-8901",
+                Round = 1,
+                InterviewDateAndTime = DateTime.Now.AddDays(3),
+                PrimaryContactId = contact2.Id // One-to-many relationship
+            };
 
-        //    modelBuilder.Entity<Meeting>().HasData(meeting1, meeting2);
-        //}
+            modelBuilder.Entity<Meeting>().HasData(meeting1, meeting2);
+        }
     }
 }
