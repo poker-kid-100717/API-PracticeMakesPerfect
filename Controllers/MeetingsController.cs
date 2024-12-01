@@ -1,6 +1,6 @@
 ﻿using API.Data;
-using API.Models;
 using API.Models.Domain;
+using API.Models.Dtos.Meeting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

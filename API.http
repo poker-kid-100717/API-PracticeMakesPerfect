@@ -10,6 +10,16 @@ Accept: application/json
 
 ###
 
+PUT {{API_HostAddress}}/contacts/{id}
+Accept: application/json
+
+###
+
+DELETE {{API_HostAddress}}/contacts/{id}
+Accept: application/json
+
+###
+
 GET {{API_HostAddress}}/meetings/
 Accept: application/json
 

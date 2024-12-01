@@ -50,7 +50,7 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2b41fac3-c947-4875-971f-b4c1bcdb0f05"),
+                            Id = new Guid("5eb949eb-58cb-48bc-b978-df33e9942c61"),
                             Email = "alice.johnson@techcorp.com",
                             IsInterviewSchedule = true,
                             Name = "Alice Johnson",
@@ -59,7 +59,7 @@ namespace API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("01d9519e-485b-4287-9599-8997e2a2f82c"),
+                            Id = new Guid("f3751eb7-3533-4911-bfef-c8ea4254e5b8"),
                             Email = "bob.smith@innovatex.com",
                             IsInterviewSchedule = false,
                             Name = "Bob Smith",
@@ -117,9 +117,9 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("751d5ae8-b7df-44e6-85e7-ae12138a8a20"),
-                            ContactId = new Guid("2b41fac3-c947-4875-971f-b4c1bcdb0f05"),
-                            InterviewDateAndTime = new DateTime(2024, 12, 2, 20, 6, 12, 708, DateTimeKind.Local).AddTicks(5483),
+                            Id = new Guid("edbd9e35-be09-4446-9cb6-8c3b4fcb6fdc"),
+                            ContactId = new Guid("5eb949eb-58cb-48bc-b978-df33e9942c61"),
+                            InterviewDateAndTime = new DateTime(2024, 12, 3, 6, 49, 25, 80, DateTimeKind.Local).AddTicks(6711),
                             IsRemote = true,
                             OrganizationName = "TechCorp",
                             POCPhone = "123-456-7890",
@@ -130,14 +130,14 @@ namespace API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("15644572-e8d0-44e8-b6c4-8250e2b2a534"),
-                            InterviewDateAndTime = new DateTime(2024, 12, 3, 20, 6, 12, 712, DateTimeKind.Local).AddTicks(4693),
+                            Id = new Guid("bf02e668-cdb5-409d-abc9-cc379db08df2"),
+                            InterviewDateAndTime = new DateTime(2024, 12, 4, 6, 49, 25, 82, DateTimeKind.Local).AddTicks(2062),
                             IsRemote = false,
                             OrganizationName = "InnovateX",
                             POCPhone = "234-567-8901",
                             PaymentType = "Hourly",
                             Position = "Frontend Developer",
-                            PrimaryContactId = new Guid("01d9519e-485b-4287-9599-8997e2a2f82c"),
+                            PrimaryContactId = new Guid("f3751eb7-3533-4911-bfef-c8ea4254e5b8"),
                             RateHourlyOrSalary = 50.0,
                             Round = 1
                         });
@@ -148,12 +148,12 @@ namespace API.Migrations
                     b.HasOne("API.Models.Domain.Contact", "Contact")
                         .WithOne("Meeting")
                         .HasForeignKey("API.Models.Domain.Meeting", "ContactId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.HasOne("API.Models.Domain.Contact", "PrimaryContact")
                         .WithMany("Meetings")
                         .HasForeignKey("PrimaryContactId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Contact");
 

@@ -24,14 +24,14 @@ namespace API.Data
                 .HasOne(m => m.Contact)
                 .WithOne(c => c.Meeting)
                 .HasForeignKey<Meeting>(m => m.ContactId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             // One-to-Many: Contact -> Meetings
             modelBuilder.Entity<Contact>()
                 .HasMany(c => c.Meetings)
                 .WithOne(m => m.PrimaryContact)
                 .HasForeignKey(m => m.PrimaryContactId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             // Seed data
             SeedData(modelBuilder);

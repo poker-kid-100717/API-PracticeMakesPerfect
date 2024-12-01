@@ -1,6 +1,6 @@
 ﻿using API.Data;
-using API.Models;
 using API.Models.Domain;
+using API.Models.Dtos.Contact;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -33,13 +33,47 @@ namespace API.Controllers
                 Email = request?.Email,
                 Phone = request?.Phone,
                 IsInterviewSchedule = request?.IsInterviewSchedule,
-                Meeting = request?.Meeting,
-                Meetings = request.Meetings
             };
 
             dbContext.Contacts.Add(domainModelContact);
             dbContext.SaveChanges();
             return Ok(domainModelContact);
+        }
+
+        [HttpPut("{id:guid}")]
+        public IActionResult UpdateContact(Guid id, UpdateContactRequestDto request)
+        {
+            var existingContact = dbContext.Contacts.FirstOrDefault(c => c.Id == id);
+            if (existingContact == null)
+            {
+                return NotFound($"Contact with ID {id} not found.");
+            }
+
+            // Update the existing contact's properties
+            existingContact.Name = request?.Name;
+            existingContact.OrganizationName = request?.OrganizationName;
+            existingContact.Email = request?.Email;
+            existingContact.Phone = request?.Phone;
+            existingContact.IsInterviewSchedule = request?.IsInterviewSchedule;
+
+            dbContext.SaveChanges();
+            return Ok(existingContact);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteContact(Guid id)
+        {
+            var contact = dbContext.Contacts.FirstOrDefault(c => c.Id == id);
+            if (contact == null)
+            {
+                return NotFound($"Contact with ID {id} not found.");
+            }
+
+            dbContext.Contacts.Remove(contact);
+            dbContext.SaveChanges();
+            GetAllContacts();
+
+            return Ok($"Contact with ID {id} deleted successfully.");
         }
     }
 }

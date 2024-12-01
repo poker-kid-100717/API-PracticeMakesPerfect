@@ -52,14 +52,12 @@ namespace API.Migrations
                         name: "FK_Meetings_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "Contacts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Meetings_Contacts_PrimaryContactId",
                         column: x => x.PrimaryContactId,
                         principalTable: "Contacts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -67,8 +65,8 @@ namespace API.Migrations
                 columns: new[] { "Id", "Email", "IsInterviewSchedule", "Name", "OrganizationName", "Phone" },
                 values: new object[,]
                 {
-                    { new Guid("59094e29-6c3c-49d3-84f7-ffe1cdb13b7d"), "bob.smith@innovatex.com", false, "Bob Smith", "InnovateX", "234-567-8901" },
-                    { new Guid("6f6e0d91-5ed2-4ee5-8604-49413e10496f"), "alice.johnson@techcorp.com", true, "Alice Johnson", "TechCorp", "123-456-7890" }
+                    { new Guid("5eb949eb-58cb-48bc-b978-df33e9942c61"), "alice.johnson@techcorp.com", true, "Alice Johnson", "TechCorp", "123-456-7890" },
+                    { new Guid("f3751eb7-3533-4911-bfef-c8ea4254e5b8"), "bob.smith@innovatex.com", false, "Bob Smith", "InnovateX", "234-567-8901" }
                 });
 
             migrationBuilder.InsertData(
@@ -76,8 +74,8 @@ namespace API.Migrations
                 columns: new[] { "Id", "ContactId", "InterviewDateAndTime", "IsRemote", "OrganizationName", "POCPhone", "PaymentType", "Position", "PrimaryContactId", "RateHourlyOrSalary", "Round" },
                 values: new object[,]
                 {
-                    { new Guid("02a7b69a-2ede-46da-a4ef-b00ff8300ea6"), null, new DateTime(2024, 12, 3, 19, 54, 12, 260, DateTimeKind.Local).AddTicks(6071), false, "InnovateX", "234-567-8901", "Hourly", "Frontend Developer", new Guid("59094e29-6c3c-49d3-84f7-ffe1cdb13b7d"), 50.0, 1 },
-                    { new Guid("75f06186-6ab3-4859-a58d-446bada51bb1"), new Guid("6f6e0d91-5ed2-4ee5-8604-49413e10496f"), new DateTime(2024, 12, 2, 19, 54, 12, 258, DateTimeKind.Local).AddTicks(5431), true, "TechCorp", "123-456-7890", "Salary", "Software Engineer", null, 120000.0, 1 }
+                    { new Guid("bf02e668-cdb5-409d-abc9-cc379db08df2"), null, new DateTime(2024, 12, 4, 6, 49, 25, 82, DateTimeKind.Local).AddTicks(2062), false, "InnovateX", "234-567-8901", "Hourly", "Frontend Developer", new Guid("f3751eb7-3533-4911-bfef-c8ea4254e5b8"), 50.0, 1 },
+                    { new Guid("edbd9e35-be09-4446-9cb6-8c3b4fcb6fdc"), new Guid("5eb949eb-58cb-48bc-b978-df33e9942c61"), new DateTime(2024, 12, 3, 6, 49, 25, 80, DateTimeKind.Local).AddTicks(6711), true, "TechCorp", "123-456-7890", "Salary", "Software Engineer", null, 120000.0, 1 }
                 });
 
             migrationBuilder.CreateIndex(
